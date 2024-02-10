@@ -1,0 +1,3 @@
+# Teamify
+
+> Genereate your teams
