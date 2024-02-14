@@ -1,5 +1,6 @@
-import 'dart:collection';
 import 'dart:math';
+
+import 'package:teamup/model/team.dart';
 
 class TeamDrawer {
   List<String> players;
@@ -34,15 +35,5 @@ class TeamDrawer {
     }
 
     return teamCount.ceil();
-  }
-}
-
-class Team {
-  final List<String> _players = [];
-
-  List<String> get players => UnmodifiableListView(_players);
-
-  void addPlayer(String player) {
-    _players.add(player);
   }
 }

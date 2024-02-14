@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:teamup/components/player_sheet.dart';
-import 'package:teamup/model/players.dart';
 import 'package:teamup/components/player_list.dart';
+import 'package:teamup/model/team.dart';
 import 'package:teamup/model/team_drawer.dart';
+import 'package:teamup/model/team_viewmodel.dart';
 import 'package:teamup/pages/team_page.dart';
 import 'package:flutter/foundation.dart' as foundation;
 
@@ -14,7 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final Players _players = Players();
+  final TeamViewModel _viewModel = TeamViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _MainPageState extends State<MainPage> {
           title: const Text('Team draw'),
         ),
         body: ListenableBuilder(
-          listenable: _players,
+          listenable: _viewModel,
           builder: (context, child) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
                   Expanded(
                     child: SizedBox(
                       width: double.maxFinite,
-                      child: PlayerList(players: _players),
+                      child: PlayerList(players: _viewModel.playersList),
                     ),
                   ),
                   _buttonsSection(),
@@ -49,19 +50,19 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buttonsSection() {
-    var totalTeams = TeamDrawer.calculateTeamCount(_players.length);
+    var totalTeams = TeamDrawer.calculateTeamCount(_viewModel.playerCount);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${_players.length} players'),
+        Text('${_viewModel.playerCount} players'),
         Text('$totalTeams teams'),
         Row(
           children: [
             Expanded(
               child: FilledButton(
-                onPressed: _players.isEmpty ? null : _drawTeams,
+                onPressed: _viewModel.isPlayersEmpty ? null : _drawTeams,
                 child: const Text('Draw teams'),
               ),
             ),
@@ -73,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                 ? IconButton.filled(
                     onPressed: () {
                       for (int i = 0; i < 20; i++) {
-                        _players.add('Player $i');
+                        _viewModel.addPlayer('Player $i');
                       }
                     },
                     icon: const Icon(Icons.data_object),
@@ -86,7 +87,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _drawTeams() {
-    var drawer = TeamDrawer(_players.asList);
+    var drawer = TeamDrawer(_viewModel.playersList);
     var teams = drawer.draw();
 
     _navigateToTeamsPage(teams);
@@ -113,7 +114,7 @@ class _MainPageState extends State<MainPage> {
             child: PlayerSheet(
               onPlayer: (player) {
                 setState(() {
-                  _players.add(player);
+                  _viewModel.addPlayer(player);
                 });
               },
             ),

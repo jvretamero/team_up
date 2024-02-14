@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teamup/model/team_drawer.dart';
+import 'package:teamup/model/team.dart';
 
 class TeamsPage extends StatelessWidget {
   final List<Team> teams;
