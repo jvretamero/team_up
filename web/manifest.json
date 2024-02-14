@@ -1,6 +1,6 @@
 {
-    "name": "teamify",
-    "short_name": "teamify",
+    "name": "teamup",
+    "short_name": "teamup",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

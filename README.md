@@ -1,3 +1,3 @@
-# Teamify
+# Team Up
 
 > Genereate your teams

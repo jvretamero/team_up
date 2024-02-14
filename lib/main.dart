@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teamify/pages/main_page.dart';
+import 'package:teamup/pages/main_page.dart';
 
 void main() {
   runApp(const MyApp());

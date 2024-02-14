@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teamify/model/players.dart';
+import 'package:teamup/model/players.dart';
 
 class PlayerList extends StatelessWidget {
   final Players players;

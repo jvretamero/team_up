@@ -1,4 +1,4 @@
-package com.teamify
+package com.teamup
 
 import io.flutter.embedding.android.FlutterActivity
 

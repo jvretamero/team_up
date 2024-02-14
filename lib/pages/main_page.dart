@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:teamify/components/player_sheet.dart';
-import 'package:teamify/model/players.dart';
-import 'package:teamify/components/player_list.dart';
-import 'package:teamify/model/team_drawer.dart';
-import 'package:teamify/pages/team_page.dart';
+import 'package:teamup/components/player_sheet.dart';
+import 'package:teamup/model/players.dart';
+import 'package:teamup/components/player_list.dart';
+import 'package:teamup/model/team_drawer.dart';
+import 'package:teamup/pages/team_page.dart';
 import 'package:flutter/foundation.dart' as foundation;
 
 class MainPage extends StatefulWidget {
