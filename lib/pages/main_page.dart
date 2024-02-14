@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:teamup/components/player_sheet.dart';
 import 'package:teamup/components/player_list.dart';
 import 'package:teamup/model/team.dart';
-import 'package:teamup/model/team_drawer.dart';
 import 'package:teamup/model/team_viewmodel.dart';
 import 'package:teamup/pages/team_page.dart';
 import 'package:flutter/foundation.dart' as foundation;
@@ -50,14 +49,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buttonsSection() {
-    var totalTeams = TeamDrawer.calculateTeamCount(_viewModel.playerCount);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('${_viewModel.playerCount} players'),
-        Text('$totalTeams teams'),
+        Text('${_viewModel.teamCount} teams'),
         Row(
           children: [
             Expanded(
@@ -87,8 +84,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _drawTeams() {
-    var drawer = TeamDrawer(_viewModel.playersList);
-    var teams = drawer.draw();
+    var teams = _viewModel.generateTeams();
 
     _navigateToTeamsPage(teams);
   }
@@ -113,9 +109,7 @@ class _MainPageState extends State<MainPage> {
             ),
             child: PlayerSheet(
               onPlayer: (player) {
-                setState(() {
-                  _viewModel.addPlayer(player);
-                });
+                _viewModel.addPlayer(player);
               },
             ),
           ),
