@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teamup/components/player_sheet.dart';
+import 'package:teamup/components/new_player_sheet.dart';
 import 'package:teamup/components/player_list.dart';
 import 'package:teamup/model/team.dart';
 import 'package:teamup/model/team_viewmodel.dart';
@@ -102,17 +102,10 @@ class _MainPageState extends State<MainPage> {
       isScrollControlled: true,
       context: context,
       builder: (context) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: PlayerSheet(
-              onPlayer: (player) {
-                _viewModel.addPlayer(player);
-              },
-            ),
-          ),
+        return NewPlayerSheet(
+          onPlayer: (player) {
+            _viewModel.addPlayer(player);
+          },
         );
       },
       showDragHandle: true,
