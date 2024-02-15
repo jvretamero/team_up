@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:teamup/components/new_player_sheet.dart';
 import 'package:teamup/components/player_list.dart';
-import 'package:teamup/model/team.dart';
+import 'package:teamup/components/team_configuration_sheet.dart';
 import 'package:teamup/model/team_viewmodel.dart';
-import 'package:teamup/pages/team_page.dart';
 import 'package:flutter/foundation.dart' as foundation;
 
 class MainPage extends StatefulWidget {
@@ -53,13 +52,11 @@ class _MainPageState extends State<MainPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('${_viewModel.playerCount} players'),
-        Text('${_viewModel.teamCount} teams'),
         Row(
           children: [
             Expanded(
               child: FilledButton(
-                onPressed: _viewModel.isPlayersEmpty ? null : _drawTeams,
+                onPressed: _viewModel.isPlayersEmpty ? null : _showTeamSheet,
                 child: const Text('Draw teams'),
               ),
             ),
@@ -83,20 +80,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void _drawTeams() {
-    var teams = _viewModel.generateTeams();
-
-    _navigateToTeamsPage(teams);
-  }
-
-  void _navigateToTeamsPage(List<Team> teams) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => TeamsPage(teams: teams),
-      ),
-    );
-  }
-
   void _showPlayerInput() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -107,6 +90,16 @@ class _MainPageState extends State<MainPage> {
             _viewModel.addPlayer(player);
           },
         );
+      },
+      showDragHandle: true,
+    );
+  }
+
+  void _showTeamSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return TeamConfigurationSheet(viewModel: _viewModel);
       },
       showDragHandle: true,
     );
