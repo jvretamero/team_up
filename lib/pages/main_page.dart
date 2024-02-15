@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Team draw'),
+          actions: _actions(),
         ),
         body: ListenableBuilder(
           listenable: _viewModel,
@@ -45,6 +46,28 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  List<Widget> _actions() {
+    return [
+      const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.group_add),
+      ),
+      const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.delete),
+      ),
+      if (foundation.kDebugMode)
+        IconButton(
+          onPressed: () {
+            for (int i = 0; i < 20; i++) {
+              _viewModel.addPlayer('Player $i');
+            }
+          },
+          icon: const Icon(Icons.data_object),
+        )
+    ];
   }
 
   Widget _buttonsSection() {
