@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
                   Expanded(
                     child: SizedBox(
                       width: double.maxFinite,
-                      child: PlayerList(players: _viewModel.playersList),
+                      child: PlayerList(viewModel: _viewModel),
                     ),
                   ),
                   _buttonsSection(),
