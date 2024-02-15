@@ -10,10 +10,10 @@ class BottomSheetBase extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
-          left: 16.0,
-          right: 16.0,
-          top: 16.0,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 32.0,
+          left: 32.0,
+          right: 32.0,
+          top: 32.0,
         ),
         child: child,
       ),
