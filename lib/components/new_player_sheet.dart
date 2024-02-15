@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teamup/components/bottom_sheet_base.dart';
 
 class NewPlayerSheet extends StatefulWidget {
   final Function(String) onPlayer;
@@ -37,43 +38,35 @@ class _NewPlayerSheetState extends State<NewPlayerSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-          left: 16.0,
-          right: 16.0,
-          top: 16.0,
-        ),
-        child: Column(
-          children: [
-            const Text(
-              'What is the player\'s name?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+    return BottomSheetBase(
+      child: Column(
+        children: [
+          const Text(
+            'What is the player\'s name?',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-            TextField(
-              autofocus: true,
-              controller: _controller,
-              onSubmitted: (value) {
-                _notify();
-              },
-              textCapitalization: TextCapitalization.words,
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              decoration: const InputDecoration(
-                border: UnderlineInputBorder(),
-                hintText: 'Player name',
-              ),
+          ),
+          TextField(
+            autofocus: true,
+            controller: _controller,
+            onSubmitted: (value) {
+              _notify();
+            },
+            textCapitalization: TextCapitalization.words,
+            keyboardType: TextInputType.name,
+            textInputAction: TextInputAction.done,
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              hintText: 'Player name',
             ),
-            const SizedBox(height: 16.0),
-            FilledButton(
-              onPressed: _count == 0 ? null : _notify,
-              child: const Text('Add player'),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(height: 16.0),
+          FilledButton(
+            onPressed: _count == 0 ? null : _notify,
+            child: const Text('Add player'),
+          )
+        ],
       ),
     );
   }
