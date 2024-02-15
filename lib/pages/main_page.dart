@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teamup/components/new_player_sheet.dart';
 import 'package:teamup/components/player_list.dart';
-import 'package:teamup/components/team_sheet.dart';
+import 'package:teamup/components/team_configuration_sheet.dart';
 import 'package:teamup/model/team_viewmodel.dart';
 import 'package:flutter/foundation.dart' as foundation;
 
@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return TeamSheet(viewModel: _viewModel);
+        return TeamConfigurationSheet(viewModel: _viewModel);
       },
       showDragHandle: true,
     );
