@@ -29,7 +29,8 @@ class _TeamConfigurationSheetState extends State<TeamConfigurationSheet> {
               Text('${widget.viewModel.playerCount} players'),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: _generateTeams,
+                onPressed:
+                    widget.viewModel.teamCount > 0 ? _generateTeams : null,
                 child: const Text('Continue'),
               ),
             ],

@@ -17,20 +17,20 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Team draw'),
-          actions: _actions(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _showPlayerInput,
-          child: const Icon(Icons.add),
-        ),
-        body: ListenableBuilder(
-          listenable: _viewModel,
-          builder: (context, child) {
-            return Padding(
+    return ListenableBuilder(
+      listenable: _viewModel,
+      builder: (context, child) {
+        return SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text('Team draw'),
+              actions: _actions(),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: _showPlayerInput,
+              child: const Icon(Icons.add),
+            ),
+            body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -44,10 +44,10 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -99,6 +99,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _deleteAllPlayers() {
-    //TODO delete all players
+    _viewModel.removeAllPlayers();
   }
 }

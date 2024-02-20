@@ -35,6 +35,11 @@ class TeamViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAllPlayers() {
+    _playerNames.clear();
+    notifyListeners();
+  }
+
   List<Team> generateTeams() {
     var teams = List.generate(teamCount, (index) => Team());
     var lastTeam = 0;
