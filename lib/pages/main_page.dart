@@ -17,15 +17,20 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Team draw'),
-        ),
-        body: ListenableBuilder(
-          listenable: _viewModel,
-          builder: (context, child) {
-            return Padding(
+    return ListenableBuilder(
+      listenable: _viewModel,
+      builder: (context, child) {
+        return SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text('Team draw'),
+              actions: _actions(),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: _showPlayerInput,
+              child: const Icon(Icons.add),
+            ),
+            body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -37,47 +42,35 @@ class _MainPageState extends State<MainPage> {
                       child: PlayerList(viewModel: _viewModel),
                     ),
                   ),
-                  _buttonsSection(),
                 ],
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buttonsSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: FilledButton(
-                onPressed: _viewModel.isPlayersEmpty ? null : _showTeamSheet,
-                child: const Text('Draw teams'),
-              ),
-            ),
-            IconButton.filled(
-              onPressed: _showPlayerInput,
-              icon: const Icon(Icons.add),
-            ),
-            foundation.kDebugMode
-                ? IconButton.filled(
-                    onPressed: () {
-                      for (int i = 0; i < 20; i++) {
-                        _viewModel.addPlayer('Player $i');
-                      }
-                    },
-                    icon: const Icon(Icons.data_object),
-                  )
-                : Container(),
-          ],
-        ),
-      ],
-    );
+  List<Widget> _actions() {
+    return [
+      IconButton(
+        onPressed: _viewModel.isPlayersEmpty ? null : _showTeamSheet,
+        icon: const Icon(Icons.group_add),
+      ),
+      IconButton(
+        onPressed: _viewModel.isPlayersEmpty ? null : _deleteAllPlayers,
+        icon: const Icon(Icons.delete),
+      ),
+      if (foundation.kDebugMode)
+        IconButton(
+          onPressed: () {
+            for (int i = 0; i < 20; i++) {
+              _viewModel.addPlayer('Player $i');
+            }
+          },
+          icon: const Icon(Icons.data_object),
+        )
+    ];
   }
 
   void _showPlayerInput() {
@@ -103,5 +96,9 @@ class _MainPageState extends State<MainPage> {
       },
       showDragHandle: true,
     );
+  }
+
+  void _deleteAllPlayers() {
+    _viewModel.removeAllPlayers();
   }
 }
