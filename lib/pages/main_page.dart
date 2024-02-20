@@ -23,6 +23,10 @@ class _MainPageState extends State<MainPage> {
           title: const Text('Team draw'),
           actions: _actions(),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _showPlayerInput,
+          child: const Icon(Icons.add),
+        ),
         body: ListenableBuilder(
           listenable: _viewModel,
           builder: (context, child) {
@@ -38,7 +42,6 @@ class _MainPageState extends State<MainPage> {
                       child: PlayerList(viewModel: _viewModel),
                     ),
                   ),
-                  _buttonsSection(),
                 ],
               ),
             );
@@ -50,13 +53,13 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _actions() {
     return [
-      const IconButton(
-        onPressed: null,
-        icon: Icon(Icons.group_add),
+      IconButton(
+        onPressed: _viewModel.isPlayersEmpty ? null : _showTeamSheet,
+        icon: const Icon(Icons.group_add),
       ),
-      const IconButton(
-        onPressed: null,
-        icon: Icon(Icons.delete),
+      IconButton(
+        onPressed: _viewModel.isPlayersEmpty ? null : _deleteAllPlayers,
+        icon: const Icon(Icons.delete),
       ),
       if (foundation.kDebugMode)
         IconButton(
@@ -68,39 +71,6 @@ class _MainPageState extends State<MainPage> {
           icon: const Icon(Icons.data_object),
         )
     ];
-  }
-
-  Widget _buttonsSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: FilledButton(
-                onPressed: _viewModel.isPlayersEmpty ? null : _showTeamSheet,
-                child: const Text('Draw teams'),
-              ),
-            ),
-            IconButton.filled(
-              onPressed: _showPlayerInput,
-              icon: const Icon(Icons.add),
-            ),
-            foundation.kDebugMode
-                ? IconButton.filled(
-                    onPressed: () {
-                      for (int i = 0; i < 20; i++) {
-                        _viewModel.addPlayer('Player $i');
-                      }
-                    },
-                    icon: const Icon(Icons.data_object),
-                  )
-                : Container(),
-          ],
-        ),
-      ],
-    );
   }
 
   void _showPlayerInput() {
@@ -126,5 +96,9 @@ class _MainPageState extends State<MainPage> {
       },
       showDragHandle: true,
     );
+  }
+
+  void _deleteAllPlayers() {
+    //TODO delete all players
   }
 }
